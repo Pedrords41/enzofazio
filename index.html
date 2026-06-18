@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FPS Login Experience</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <canvas id="gameCanvas"></canvas>
+
+    <div id="customCrosshair"></div>
+
+    <div id="weaponContainer" class="hidden">
+        <div class="pistol"></div>
+        <div class="muzzle-flash"></div>
+    </div>
+
+    <div id="hud" class="hidden">
+        <div class="score-container">SCORE: <span id="scoreValue">0</span></div>
+    </div>
+
+    <div id="wallHpContainer">
+        <div class="hp-label">BARREIRA DE SEGURANÇA</div>
+        <div class="hp-bar-outer">
+            <div id="wallHpBar"></div>
+        </div>
+    </div>
+
+    <div id="loginScreen" class="hidden">
+        <div class="login-box">
+            <h2>ACESSO RESTRITO</h2>
+            <p>Insira suas credenciais para inicializar o sistema</p>
+            <form id="loginForm">
+                <div class="input-group">
+                    <input type="text" id="username" required placeholder=" ">
+                    <label for="username">USUÁRIO</label>
+                </div>
+                <div class="input-group">
+                    <input type="password" id="password" required placeholder=" ">
+                    <label for="password">SENHA</label>
+                </div>
+                <button type="submit" id="btnEntrar">ENTRAR NO SISTEMA</button>
+            </form>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

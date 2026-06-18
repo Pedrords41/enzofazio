@@ -1,0 +1,304 @@
+:root {
+    --primary-color: #ff4655; /* Vermelho estilo Valorant */
+    --bg-dark: #0f141c;
+    --bg-box: rgba(15, 20, 28, 0.85);
+    --neon-shadow: 0 0 15px rgba(255, 70, 85, 0.6);
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    user-select: none;
+}
+
+body, html {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    background-color: var(--bg-dark);
+    font-family: 'Courier New', Courier, monospace;
+    cursor: none; /* Esconde o mouse padrão */
+}
+
+canvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+}
+
+/* Utilitários - Corrigido para alternar com classe CSS dinamicamente */
+.hidden {
+    display: none !important;
+}
+
+/* Efeito Screen Shake */
+.shake {
+    animation: screenShake 0.1s ease-in-out infinite;
+}
+
+@keyframes screenShake {
+    0% { transform: translate(3px, 3px); }
+    25% { transform: translate(-3px, -2px); }
+    50% { transform: translate(-4px, 1px); }
+    75% { transform: translate(2px, -3px); }
+    100% { transform: translate(3px, 3px); }
+}
+
+/* --- MIRA CUSTOMIZADA PERFEITA (CROSSHAIR) --- */
+#customCrosshair {
+    position: absolute;
+    width: 16px;
+    height: 16px;
+    border: 2px solid var(--primary-color);
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    pointer-events: none;
+    z-index: 100;
+    box-shadow: 0 0 5px var(--primary-color);
+}
+#customCrosshair::before {
+    content: '';
+    position: absolute;
+    top: calc(50% - 1px);
+    left: -6px;
+    width: 24px;
+    height: 2px;
+    background: var(--primary-color);
+}
+#customCrosshair::after {
+    content: '';
+    position: absolute;
+    left: calc(50% - 1px);
+    top: -6px;
+    width: 2px;
+    height: 24px;
+    background: var(--primary-color);
+}
+
+/* --- FASE 1: BARRA DE HP (SEU ORIGINAL) --- */
+#wallHpContainer {
+    position: absolute;
+    top: 40px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 400px;
+    z-index: 10;
+    text-align: center;
+    transition: opacity 0.5s ease;
+}
+
+.hp-label {
+    color: #fff;
+    font-size: 14px;
+    letter-spacing: 3px;
+    margin-bottom: 8px;
+    text-shadow: 0 0 5px var(--primary-color);
+}
+
+.hp-bar-outer {
+    width: 100%;
+    height: 14px;
+    background: rgba(0, 0, 0, 0.7);
+    border: 2px solid var(--primary-color);
+    padding: 2px;
+    box-shadow: var(--neon-shadow);
+}
+
+#wallHpBar {
+    width: 100%;
+    height: 100%;
+    background: var(--primary-color);
+    transition: width 0.1s ease-out;
+}
+
+/* --- FASE 2: TELA DE LOGIN (SEU ORIGINAL COMPLETO) --- */
+#loginScreen {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 5;
+    background: radial-gradient(circle, transparent 20%, rgba(15, 20, 28, 0.9) 80%);
+}
+
+.login-box {
+    background: var(--bg-box);
+    border: 2px solid var(--primary-color);
+    padding: 40px;
+    width: 380px;
+    box-shadow: var(--neon-shadow), inset 0 0 20px rgba(255, 70, 85, 0.2);
+    color: #fff;
+    text-align: center;
+    backdrop-filter: blur(4px);
+    animation: cinematicEntrance 1.2s cubic-bezier(0.19, 1, 0.22, 1) forwards;
+}
+
+@keyframes cinematicEntrance {
+    0% {
+        opacity: 0;
+        transform: scale(0.8) translateY(50px);
+        filter: blur(15px);
+        box-shadow: 0 0 50px rgba(255, 70, 85, 0.8);
+    }
+    50% {
+        filter: blur(4px);
+    }
+    100% {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+        filter: blur(0px);
+    }
+}
+
+.login-box h2 {
+    font-size: 24px;
+    margin-bottom: 10px;
+    letter-spacing: 2px;
+    color: #fff;
+    text-shadow: 0 0 8px var(--primary-color);
+}
+
+.login-box p {
+    font-size: 11px;
+    color: #8f9398;
+    margin-bottom: 30px;
+    text-transform: uppercase;
+}
+
+.input-group {
+    position: relative;
+    margin-bottom: 25px;
+}
+
+.input-group input {
+    width: 100%;
+    padding: 12px 10px;
+    background: rgba(0, 0, 0, 0.4);
+    border: 1px solid #444;
+    color: #fff;
+    font-family: inherit;
+    font-size: 14px;
+    outline: none;
+    transition: all 0.3s;
+    cursor: none;
+}
+
+.input-group input:focus,
+.input-group input:not(:placeholder-shown) {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 8px rgba(255, 70, 85, 0.3);
+}
+
+.input-group label {
+    position: absolute;
+    left: 10px;
+    top: 14px;
+    color: #8f9398;
+    font-size: 12px;
+    pointer-events: none;
+    transition: all 0.3s;
+    letter-spacing: 1px;
+}
+
+.input-group input:focus ~ label,
+.input-group input:not(:placeholder-shown) ~ label {
+    top: -18px;
+    left: 5px;
+    font-size: 10px;
+    color: var(--primary-color);
+}
+
+#btnEntrar {
+    width: 100%;
+    padding: 15px;
+    background: var(--primary-color);
+    border: none;
+    color: #fff;
+    font-family: inherit;
+    font-weight: bold;
+    font-size: 14px;
+    letter-spacing: 2px;
+    cursor: none;
+    transition: all 0.2s;
+    position: relative;
+    overflow: hidden;
+}
+
+#btnEntrar:hover {
+    background: #fff;
+    color: var(--bg-dark);
+    box-shadow: 0 0 20px #fff;
+}
+
+#btnEntrar:active {
+    transform: scale(0.98);
+}
+
+/* --- FASE 3: HUD DO AIM TRAINER --- */
+#hud {
+    position: absolute;
+    top: 30px;
+    left: 40px;
+    z-index: 10;
+    pointer-events: none;
+    font-family: monospace;
+    transition: opacity 0.5s;
+}
+
+.score-container {
+    color: #fff;
+    font-size: 28px;
+    font-weight: bold;
+    letter-spacing: 2px;
+    border-left: 4px solid var(--primary-color);
+    padding-left: 12px;
+    text-shadow: var(--neon-shadow);
+}
+
+/* --- VISUAL DA PISTOLA --- */
+#weaponContainer {
+    position: absolute;
+    bottom: 0;
+    right: 15%;
+    width: 200px;
+    height: 250px;
+    z-index: 8;
+    pointer-events: none;
+    transition: transform 0.1s ease;
+}
+.pistol {
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, #1e222b 0%, #090b0f 100%);
+    clip-path: polygon(40% 20%, 85% 20%, 90% 40%, 65% 45%, 60% 100%, 45% 100%, 45% 45%, 40% 40%);
+    border-left: 2px solid #3a4150;
+    box-shadow: inset -5px -5px 15px rgba(0,0,0,0.8);
+}
+.shoot-recoil {
+    animation: recoilAnim 0.1s ease-out;
+}
+@keyframes recoilAnim {
+    0% { transform: translateY(0) rotate(0deg); }
+    30% { transform: translateY(30px) rotate(-10deg); }
+    100% { transform: translateY(0) rotate(0deg); }
+}
+.muzzle-flash {
+    position: absolute;
+    top: 5%;
+    left: 30%;
+    width: 40px;
+    height: 40px;
+    background: radial-gradient(circle, #fff 20%, #ffae19 60%, transparent 100%);
+    border-radius: 50%;
+    opacity: 0;
+    display: none;
+    z-index: 9;
+}
